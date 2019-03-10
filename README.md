@@ -37,7 +37,7 @@ Projelerde ConfigurationReader kullanımı Boyner.Client uygulamasında kullanı
       ConfigurationReader verilen app name ile T GetValue<T>(string key) methodundaki appname parametresi aynı ise geriye istek yapılan       değer döner
 
 
-# Technology
+# Teknolojiler
 
 - C#
 - ASP.NET Core
@@ -47,8 +47,10 @@ Projelerde ConfigurationReader kullanımı Boyner.Client uygulamasında kullanı
 - MSSQL
 - Caching;
 - RabbitMQ
+- IoC (.net core IServiceCollection) 
 - Xunit Test
-# Prerequisites
+
+# Gereksinimler
 
 -  Visual Studio 2017
 -  .NET Core 2.2 (https://www.microsoft.com/net/core)
