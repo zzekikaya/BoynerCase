@@ -21,12 +21,19 @@ Projelerde ConfigurationReader kullanımı Boyner.Client uygulamasında kullanı
 ## Koşullar
  
 •	Kütüphane storage’a erişemediğinde son başarılı konfigürasyon kayıtları ile çalışabilmelidir.
+
       database'e erişim sağlanmadığında cache'de son çalışan app varsa geriye son çalışan app döner
+      
 •	Kütüphane her tipe ait dönüş bilgisini kendi içerisinde halletmelidir. 
+
       Generic tip kullanılmıştır.
+      
 •	Sistem parametrik olarak verilen süre periyodunda yeni kayıtları ve kayıt değişikliklerini kontrol etmelidir. 
+
       ConfigurationReader kullanırken dakika cinsinden zaman tanımlanır. bu zaman içinde yeni kayıt varsa cache null olduktan sonra yeni       kayıtlarda geriye dönebilmektedir. (Test yazıldı kontrol edildi.)
+      
 •	Her servis yalnızca kendi konfigürasyon kayıtlarına erişebilmeli, başkasının kayıtlarını görmemelidir.
+
       ConfigurationReader verilen app name ile T GetValue<T>(string key) methodundaki appname parametresi aynı ise geriye istek yapılan       değer döner
 
 
