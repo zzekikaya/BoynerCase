@@ -34,6 +34,7 @@ Projelerde ConfigurationReader kullanımı Boyner.Client uygulamasında kullanı
 
 - C#
 - ASP.NET Core
+- ASP.NET Core MVC
 - JavaScript, jQuery
 - Entity Framework Core 2.2.0
 - MSSQL
