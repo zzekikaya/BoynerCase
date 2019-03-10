@@ -1,4 +1,4 @@
-# BoynerCase
+# Boyner Case
 
 # Projenin Amaçı
 
