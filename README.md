@@ -32,6 +32,8 @@ Projelerde ConfigurationReader kullanımı Boyner.Client uygulamasında kullanı
 
       ConfigurationReader kullanırken dakika cinsinden zaman tanımlanır. bu zaman içinde yeni kayıt varsa cache null olduktan sonra yeni       kayıtlarda geriye dönebilmektedir. (Test yazıldı kontrol edildi.)
       
+      config entityde crud işlemleri olduğunda rabbitmq ile publisher yapılmıştır.  rabbit server portalinde görünmektedir.
+      
 •	Her servis yalnızca kendi konfigürasyon kayıtlarına erişebilmeli, başkasının kayıtlarını görmemelidir.
 
       ConfigurationReader verilen app name ile T GetValue<T>(string key) methodundaki appname parametresi aynı ise geriye istek yapılan       değer döner
