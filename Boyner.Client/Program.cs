@@ -20,8 +20,8 @@ namespace Boyner.Client
             Console.WriteLine(result);
             //}
 
-            MessageBroker ms = new MessageBroker();
-            ms.Publisher("myqueue", "new config added");
+            //MessageBroker ms = new MessageBroker();
+            //ms.Publisher("myqueue", "new config added");
         }
     }
 }
