@@ -1,5 +1,6 @@
 ﻿using Boyner.Service;
 using System;
+using Core.MessageBroker.Concrete;
 
 namespace Boyner.Client
 {
@@ -19,6 +20,8 @@ namespace Boyner.Client
             Console.WriteLine(result);
             //}
 
+            MessageBroker ms = new MessageBroker();
+            ms.Publisher("myqueue", "new config added");
         }
     }
 }

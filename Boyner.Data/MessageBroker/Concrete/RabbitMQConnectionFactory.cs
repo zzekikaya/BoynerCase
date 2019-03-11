@@ -7,16 +7,16 @@ namespace Core.MessageBroker.Concrete
 {
     public class RabbitMQConnectionFactory
     {
-        private readonly string _hostName = @"localhost:15762/";
+        //private readonly string _hostName = @"localhost";
+        private const string HostName = "192.168.1.1";
+        private const string UserName = "guest";
+        private const string Password = "guest";
+        private const string QueueName = "myqueue";
+        private const string ExchangeName = "";
 
         public IConnection GetRabbitMQConnection()
-        {
-            ConnectionFactory connectionFactory = new ConnectionFactory()
-            {
-                Uri = new Uri(_hostName),
-                Password = "guest",
-                UserName = "guest"
-            };
+        {            
+            var connectionFactory = new ConnectionFactory { HostName = HostName, UserName = UserName, Password = Password };
             return connectionFactory.CreateConnection();
         }
     }

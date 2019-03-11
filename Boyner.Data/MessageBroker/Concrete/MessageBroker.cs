@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Core.MessageBroker.Concrete
 {
-    public class RabbitMQMessageBroker : IMessageBroker
+    public class MessageBroker : IMessageBroker
     {
         private readonly RabbitMQConnectionFactory _rabbitMQConnectionFactory;
 
-        public RabbitMQMessageBroker()
+        public MessageBroker()
         {
             _rabbitMQConnectionFactory = new RabbitMQConnectionFactory();
         }
@@ -39,17 +39,26 @@ namespace Core.MessageBroker.Concrete
 
         public void Publisher(string queueName, string message)
         {
-            using (var connection = _rabbitMQConnectionFactory.GetRabbitMQConnection())
+            try
             {
-                using (var channel = connection.CreateModel())
+                using (var connection = _rabbitMQConnectionFactory.GetRabbitMQConnection())
                 {
-                    channel.QueueDeclare(queueName, false, false, false, null);
+                    using (var channel = connection.CreateModel())
+                    {
+                        var properties = channel.CreateBasicProperties();
 
-                    channel.BasicPublish("", queueName, null, Encoding.UTF8.GetBytes(message));
+                        channel.BasicPublish("", queueName, null, Encoding.UTF8.GetBytes(message));
 
-                    Debug.WriteLine( queueName, message);
+                        Debug.WriteLine(queueName, message);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+              
+            }
+        
         }
     }
 }

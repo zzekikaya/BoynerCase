@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Core.MessageBroker.Abstract;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Boyner.Web.UI.Controllers
@@ -20,10 +21,12 @@ namespace Boyner.Web.UI.Controllers
         private readonly ConfigContext _context;
         protected IUnitOfWork _unitOfWork { get; }
         private readonly IMapper _mapper;
-        public ConfigsController(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IMessageBroker _messageBroker;
+        public ConfigsController(IUnitOfWork unitOfWork, IMapper mapper, IMessageBroker messageBroker)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+           _messageBroker = messageBroker;
         }
 
         // GET: Configs
@@ -70,6 +73,7 @@ namespace Boyner.Web.UI.Controllers
                 var configEntity = _mapper.Map<ConfigModel, Config>(config);
                 _unitOfWork.Insert(configEntity);
                 _unitOfWork.Commit();
+                _messageBroker.Publisher("myqueue", string.Format(" add new cofig : application name: {0} value: :{1}", config.ApplicationName));
             }
             return RedirectToAction("Index");
         }
@@ -111,6 +115,7 @@ namespace Boyner.Web.UI.Controllers
                     var configEntity = _mapper.Map<ConfigModel, Config>(config);
                     _unitOfWork.Update(configEntity);
                     _unitOfWork.Commit();
+                    _messageBroker.Publisher("myqueue", string.Format(" edit cofig : application name: {0} value: :{1}", config.ApplicationName));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -155,6 +160,7 @@ namespace Boyner.Web.UI.Controllers
             var config = _unitOfWork.Select<Config>().FirstOrDefault(x => x.Id == id);
             _unitOfWork.Delete(config);
             _unitOfWork.Commit();
+            _messageBroker.Publisher("myqueue", string.Format(" delete cofig : application name: {0} value: :{1}", config.ApplicationName));
             //return RedirectToAction(nameof(Index));
             return RedirectToAction("Index");
 

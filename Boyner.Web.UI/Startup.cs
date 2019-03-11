@@ -6,6 +6,8 @@ using AutoMapper;
 using Boyner.Core.Repository;
 using Boyner.Data;
 using Boyner.Domain.Entities;
+using Core.MessageBroker.Abstract;
+using Core.MessageBroker.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
@@ -59,7 +61,7 @@ namespace Boyner.Web.UI
             //services.AddTransient<Configuration>();//seed işlemleri
             services.AddTransient<DbContext, ConfigContext>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            //services.AddTransient<IConfigService, ConfigService>();
+            services.AddTransient<IMessageBroker, MessageBroker>(); 
             services.AddDbContext<ConfigContext>(
                 options => options.UseSqlServer(
                     Configuration.GetConnectionString("BoynerConnection")));
